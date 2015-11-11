@@ -2,12 +2,6 @@
 #ifndef __NEURAL_YODA_H__
 #define __NEURAL_YODA_H__
 
-enum TrainMethod_t {
-    TM_TRAINDIR,
-    TM_YOURSELF,
-    TM_TRAINIMAGES
-};
-
 class NeuralYoda
 {
   private:
