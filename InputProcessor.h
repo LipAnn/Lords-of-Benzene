@@ -2,17 +2,18 @@
 #define __INPUT_PROCESSOR_H__
 
 #include <opencv2/opencv.hpp>
+#include <vector>
 #include "CommonHeader.h"
 
 class InputProcessor
 {
   private:
-    ImagePack_t given_pack;
+    vector<Image_t> given_pack;
 
   public:
-    InputProcessor(ImagePack_t);
+    InputProcessor(vector<Image_t>);
 
-    ImagePack_t GetImages();
+    vector<Image_t>& GetImages();
     void FilterImages(); // can return smth else
 };
 
