@@ -1,7 +1,16 @@
+#ifndef __COMMON_HEADER_H__
+#define __COMMON_HEADER_H__
+
 #include <opencv2/opencv.hpp>
 #include <opencv2/highgui.hpp>
 #include <iostream>
 #include <vector>
+
+enum TrainMethod_t {
+    TM_TRAINDIR,
+    TM_YOURSELF,
+    TM_TRAINIMAGES
+};
 
 class ImagePack_t
 {
@@ -40,3 +49,5 @@ int ImagePack_t::size()
 {
     return sample_pack.size();
 }
+
+#endif //__COMMON_HEADER_H__
