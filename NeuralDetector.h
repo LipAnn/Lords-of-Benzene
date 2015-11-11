@@ -4,7 +4,7 @@
 #include <opencv2/opencv.hpp>
 #include <vector>
 
-#include "InputProcessor.hpp"
+#include "InputProcessor.h"
 
 class NeuralDetector
 {

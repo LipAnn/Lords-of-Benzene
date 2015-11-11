@@ -5,7 +5,7 @@ CLIBS=`pkg-config opencv --libs`
 all : main
 main : $(OBJECTS)
 	$(CC) $(CFLAGS) $^ $(CLIBS) -o $@
-NeuralDetector.o : NeuralDetector.cpp 
+NeuralDetector.o : NeuralDetector.cpp InputProcessor.h NeuralDetector.h ImagePack_t.h
 	$(CC) $(CFLAGS) -c $< $(CLIBS) -o $@
 InputProcessor.o : InputProcessor.cpp InputProcessor.h ImagePack_t.h
 	$(CC) $(CFLAGS) -c $< $(CLIBS) -o $@
