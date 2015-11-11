@@ -10,14 +10,14 @@
 class NeuralDetector
 {
   private:
-    std::vector<std::vector<cv::Point> > contorus;
+    std::vector<std::vector<cv::Point> > contours;
     std::vector<cv::Vec4i> hierarchy;
 
   public:
     void DetectShape(InputProcessor);
 
-    std::vector<std::vector<cv::Point> > GetControus();
-    std::vector<cv::Vec4i> GetHierarchy();
+    std::vector<std::vector<cv::Point> > GetContours();
+    std::vector<cv::Vec2i> GetHierarchy();
 };
 
 #endif // __NEURAL_DETECTOR_H__
