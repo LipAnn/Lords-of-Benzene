@@ -3,7 +3,7 @@
 #include <highgui.h>
 
 #include "InputProcessor.h"
-#include "ImagePack_t.h"
+#include "CommonHeader.h"
 
 InputProcessor::InputProcessor(ImagePack_t im_pack) : given_pack(im_pack) {}
 
@@ -14,8 +14,8 @@ ImagePack_t InputProcessor::GetImages()
 
 void InputProcessor::FilterImages()
 {
-  for (ImagePack_t::iterator it = given_pack.begin(); it != given_pack.end(); ++it)
+  for (long long i = 0; i < given_pack.size(); ++i)
     {
-      cv::fastNlMeansDenoisingColored(*it, *it);
+      cv::fastNlMeansDenoisingColored(given_pack[i], given_pack[i]);
     }
 }

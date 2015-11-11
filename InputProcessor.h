@@ -2,7 +2,7 @@
 #define __INPUT_PROCESSOR_H__
 
 #include <opencv2/opencv.hpp>
-#include "ImagePack_t.h"
+#include "CommonHeader.h"
 
 class InputProcessor
 {
