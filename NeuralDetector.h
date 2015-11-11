@@ -6,6 +6,7 @@
 
 #include "InputProcessor.h"
 
+
 class NeuralDetector
 {
   private:
