@@ -2,6 +2,8 @@
 #ifndef __NEURAL_YODA_H__
 #define __NEURAL_YODA_H__
 
+#include "CommonHeader.h"
+
 class NeuralYoda
 {
   private:
