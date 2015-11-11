@@ -3,12 +3,12 @@
 #include <iostream>
 #include <vector>
 
-class ImagePack_t 
+class ImagePack_t
 {
   public:
     vector<cv::Mat> sample_pack;
     vector<bool> sample_info;
-    
+
     int size ();
     bool AddImage (cv::Mat image, bool image_info = false);
     bool DeleteImage (int index);
@@ -19,15 +19,15 @@ bool ImagePack_t::AddImage(cv::Mat image, bool image_info)
 {
     sample_pack.insert(sample_pack.end(), image);
     sample_info.insert(sample_pack.end(), image_info);
-    
+
     return 1;
 }
 
 bool ImagePack_t::DeleteImage(int index)
 {
-    sample_pack.erase (sample_pack.begin()+index);
-    sample_info.erase (sample_info.begin()+index);
-    
+    sample_pack.erase (sample_pack.begin() + index);
+    sample_info.erase (sample_info.begin() + index);
+
     return 1;
 }
 
