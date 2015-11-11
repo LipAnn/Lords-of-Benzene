@@ -12,42 +12,16 @@ enum TrainMethod_t {
     TM_TRAINIMAGES
 };
 
-class ImagePack_t
-{
-  public:
-    vector<cv::Mat> sample_pack;
-    vector<bool> sample_info;
-
-    int size ();
-    bool AddImage (cv::Mat image, bool image_info = false);
-    bool DeleteImage (int index);
-    cv::Mat operator[] (int index);
+enum SampleInfo_t {
+    SI_UNDEF = 0,
+    SI_EXBNZ = 1,
+    SI_NOBNZ = 2
 };
 
-bool ImagePack_t::AddImage(cv::Mat image, bool image_info)
+struct Image_t
 {
-    sample_pack.insert(sample_pack.end(), image);
-    sample_info.insert(sample_pack.end(), image_info);
-
-    return 1;
-}
-
-bool ImagePack_t::DeleteImage(int index)
-{
-    sample_pack.erase (sample_pack.begin() + index);
-    sample_info.erase (sample_info.begin() + index);
-
-    return 1;
-}
-
-cv::Mat ImagePack_t::operator[](int index)
-{
-    return sample_pack[index];
-}
-
-int ImagePack_t::size()
-{
-    return sample_pack.size();
-}
+    cv::Mat image;
+    SampleInfo_t info;
+};
 
 #endif //__COMMON_HEADER_H__
