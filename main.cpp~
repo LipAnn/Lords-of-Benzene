@@ -1,9 +1,0 @@
-#include <iostream>
-#include "class.h"
-
-int main(void)
-{
-	cout << "Hello" << endl;
-	cout << num << endl;
-	return 0;
-}
