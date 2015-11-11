@@ -10,7 +10,7 @@ void NeuralDetector::DetectShape(InputProcessor processed_images)
 {
   ImagePack_t images = processed_images.GetImages();
   for (long long i = 0; i < given_pack.size(); ++i) {
-    cv::findContours(given_pack[i], contorus[i], hierarchy[i], CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE);
+    cv::findContours(given_pack[i].image, contorus[i], hierarchy[i], CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE);
   }
 }
 
