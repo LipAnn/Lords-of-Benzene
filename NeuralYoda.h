@@ -16,7 +16,7 @@ class NeuralYoda
     
     void LoadSamples (const char *train_dir = NULL);
     void TrainPadavan (TrainMethod_t train_method, void *args);
-    ImagePack_t* RunSGenerator ();
+    vector <Image_t>* RunSGenerator ();
     bool CheckPadavan ();
     void Meditate ();
 };
