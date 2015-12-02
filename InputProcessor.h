@@ -2,13 +2,13 @@
 #define __INPUT_PROCESSOR_H__
 
 #include <opencv2/opencv.hpp>
+#include <vector>
 #include "CommonHeader.h"
 
 class InputProcessor
 {
   private:
     vector <Image_t> given_pack;
-    
     
     void FilterImages(); // can return smth else
 
