@@ -12,10 +12,8 @@ class Manager {
     Spokesman spokesman;
     InputProcessor processor;
     NeuralDetector detector;
-    NeuralYoda yoda;
     
     void InitSystem ();
-    void SummonYoda (vector <Image_t> ImagePack, UseMode_t given_mode);
     void BurnSystemDown ();
     
   public:  
