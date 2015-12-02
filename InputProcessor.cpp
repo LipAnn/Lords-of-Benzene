@@ -5,11 +5,22 @@
 #include "InputProcessor.h"
 #include "CommonHeader.h"
 
-InputProcessor::InputProcessor(ImagePack_t im_pack) : given_pack(im_pack) {}
+void InputProcessor::LoadImages(vector<Image_t> loaded_pack)
+{
+    given_pack = loaded_pack;
+}
 
 ImagePack_t InputProcessor::GetImages()
 {
   return given_pack;
+}
+
+vector <Image_t> InputProcessor::ProcessImages (vector <Image_t> loaded_pack)
+{
+    LoadImages (loaded_pack);
+    FilterImages ();
+    //... Here we can insert some more methods
+    return GetImages (loaded_pack);
 }
 
 void InputProcessor::FilterImages()
