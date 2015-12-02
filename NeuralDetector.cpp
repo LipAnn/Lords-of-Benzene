@@ -38,7 +38,8 @@ vector<Image_t> NeuralDetector::DetectImages(vector<Image_t> images)
     return images;
 }
 
-bool NeuralDetector::train(vector<Image_t> images) {
+bool NeuralDetector::Train(vector<Image_t> images)
+{
     size_t images_count = images.size();
     cv::Mat trainData(images_count, ROWS * COLS, CV_32FC1);
     cv::Mat trainOut(count_images, 1, CV_32FC1);
