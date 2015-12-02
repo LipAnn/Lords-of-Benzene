@@ -20,7 +20,7 @@ vector<Image_t> NeuralDetector::DetectImages(vector<Image_t> images)
 {
     size_t images_count = images.size();
     cv::Mat predictData(images_count, ROWS * COLS, CV_32FC1);
-    cv::Mat predout(count_images, 1, CV_32FC1);
+    cv::Mat predout(images_count, 1, CV_32FC1);
 
     for (size_t i = 0; i < images_count; ++i) {
         (images[i].image.reshape(0, 1)).copyTo(predictData.row(i));
@@ -42,7 +42,7 @@ bool NeuralDetector::Train(vector<Image_t> images)
 {
     size_t images_count = images.size();
     cv::Mat trainData(images_count, ROWS * COLS, CV_32FC1);
-    cv::Mat trainOut(count_images, 1, CV_32FC1);
+    cv::Mat trainOutput(images_count, 1, CV_32FC1);
 
     for (size_t i = 0; i < images_count; ++i) {
         (images[i].image.reshape(0, 1)).copyTo(trainData.row(i));
@@ -60,7 +60,7 @@ bool NeuralDetector::Train(vector<Image_t> images)
            cvTermCriteria(
                CV_TERMCRIT_ITER | CV_TERMCRIT_EPS,
                MAX_ITER,
-               MY_EPSILON
+               MLP_EPSILON
                ),
            CvANN_MLP_TrainParams::BACKPROP,
            PARAM1,

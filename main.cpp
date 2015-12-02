@@ -2,9 +2,9 @@
 
 int main (void)
 {
-    Manager *manager = new Manager();
-    
-    manager->Process ();
-    
+    Manager manager;
+
+    manager.Process ();
+
     return 0;
 }
