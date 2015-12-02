@@ -6,6 +6,8 @@
 #include <iostream>
 #include <vector>
 
+using namespace std;
+
 enum SampleInfo_t
 {
     SI_UNDEF = 0,
