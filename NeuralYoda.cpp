@@ -1,19 +1,21 @@
 #include "NeuralYoda.h"
 //...
 
-NeuralYoda::NeuralYoda(NeuralDetector* nd_ptr, int sgen_seed) :
-                        padavan_ptr(nd_ptr),
-                        s_generator(sgen_seed)
+NeuralYoda::NeuralYoda(NeuralDetector* nd_ptr) :
+                        padavan_ptr(nd_ptr)
 {
 }
 
 void NeuralYoda::LoadSamples(const char* train_dir)
 {
-    
+
 }
 
-void NeuralYoda::TrainPadavan (TrainMethod_t train_method, void *args);
-    
+bool NeuralYoda::TrainPadavan (vector<Image_t> images)
+{
+
+}
+
 
 ImagePack_t* NeuralYoda::RunSGenerator ()
 {
