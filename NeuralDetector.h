@@ -43,6 +43,7 @@ class NeuralDetector
     NeuralDetector ();
     ~NeuralDetector();
     vector<Image_t> DetectImages(vector<Image_t> images);
+    bool Train(vector<Image_t> images);
 };
 
 #endif // __NEURAL_DETECTOR_H__

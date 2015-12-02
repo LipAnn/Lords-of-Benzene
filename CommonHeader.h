@@ -6,14 +6,15 @@
 #include <iostream>
 #include <vector>
 
-enum SampleInfo_t {
+enum SampleInfo_t
+{
     SI_UNDEF = 0,
     SI_EXBNZ = 1,
     SI_NOBNZ = 2
 };
 
-const int ROWS=180;
-const int COLS=320;
+const int ROWS=150;
+const int COLS=150;
 
 struct Image_t
 {
