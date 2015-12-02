@@ -7,10 +7,11 @@
 
 class InputProcessor
 {
+    
   private:
     vector <Image_t> given_pack;
-    
     void FilterImages(); // can return smth else
+    void ResizeImages();
 
   public:
     vector <Image_t> ProcessImages (vector <Image_t> loaded_pack);
