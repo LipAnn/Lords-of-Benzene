@@ -9,11 +9,11 @@ class NeuralYoda
   private:
     NeuralDetector *padavan_ptr;
     SamplesGenerator s_generator;
-        
+
   public:
     NeuralYoda (NeuralDetector *nd_ptr, int sgen_seed);
     ~NeuralYoda();
-    
+
     void LoadSamples (const char *train_dir = NULL);
     void TrainPadavan (TrainMethod_t train_method, void *args);
     vector <Image_t>* RunSGenerator ();
