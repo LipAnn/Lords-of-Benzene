@@ -21,11 +21,11 @@ class Spokesman
     
   private:
     bool ShowImages (vector <Image_t> what_to_show);
-    vector <Image_t> InputImages ();
-    bool TestSamples (const char *path_to_dir);
-    vector <Image_t> TestUser ();
-    bool LearnNewSamples (const char *path_to_dir);
-    bool TrainYourself ();
+    vector <Image_t> InputImages (UseMode_t given_mode);
+    vector <Image_t> InputDir (UseMode_t given_mode);
+    //bool TestSamples (const char *path_to_dir);
+    //vector <Image_t> TestUser ();
+    //bool LearnNewSamples (const char *path_to_dir);
     
 };
 

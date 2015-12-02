@@ -2,6 +2,7 @@
 #include <unistd.h>
 #include <dirent.h>
 #include <sys/types.h>
+#include <sys/stat.h>
 
 /**
  * 
@@ -68,16 +69,38 @@ void Spokesman::Msg (const char *msg_text)
     sleep (3);
 }
 
-bool ShowImages (vector <Image_t> what_to_show)
+bool Spokesman::ShowImages (vector <Image_t> what_to_show)
 {
     for (int i = 0; i < what_to_show.size(); i++) {
         //Displaying images
     }
 }
 
-vector <Image_t> InputDir (const char *path_to_dir)
+vector <Image_t> Spokesman::InputImages (UseMode_t given_mode)
 {
-    printf ("Let's process some directories...\n");
+    char *path[PATH_MAX];
+    printf ("Enter image path: ");
+    Image_t new_elem;
+    
+    vector <Image_t> samples_vec;
+    samples_vec.reserve(10);
+    
+    while (!scanf ("%[^\n]\n", path)) {
+        new_elem.image = cv::imread (path, CV_LOAD_IMAGE_UNCHANGED);
+        new_elem.info = SI_UNDEF;
+        samples_vec.push_back(new_elem);
+        
+        printf ("Enter image path: ");
+    }
+    
+    return samples_vec;
+}
+
+vector <Image_t> Spokesman::InputDir (UseMode_t given_mode)
+{
+    char *path_to_dir[PATH_MAX];
+    printf ("Enter path to dir: ");
+    scanf ("%[^\n]\n", path_to_dir);
     
     vector <Image_t> samples_vec;
     samples_vec.reserve(10);
@@ -86,16 +109,30 @@ vector <Image_t> InputDir (const char *path_to_dir)
     char path[PATH_MAX] = {};
     struct dirent *dd = NULL;
     struct stat stb;
-    long long int szsumm = 0;
     
-    while ((dd = readdir(directory)) != NULL) {
-        snprintf (path, sizeof(path), "%s/%s", path_to_dir, dd->d_name);
-        if ( (lstat (path, &stb) != -1) && S_ISREG(stb.st_mode)) {
-            printf ("")
+    Image_t new_elem;
+    if (given_mode == UM_INPUT_DIR) {
+        while ((dd = readdir(directory)) != NULL) {
+            snprintf (path, sizeof(path), "%s/%s", path_to_dir, dd->d_name);
+            if ( (lstat (path, &stb) != -1) && S_ISREG(stb.st_mode)) {
+                new_elem.image = cv::imread (path, CV_LOAD_IMAGE_UNCHANGED);
+                new_elem.info = SI_UNDEF;
+                samples_vec.push_back(new_elem);
+            }
         }
+    } else if (given_mode == UM_TRAIN_ON_NEW || given_mode == UM_TEST_SAMPLES) {
+        snprintf (path, sizeof (path), "%s/%s.dat", path_to_dir, path_to_dir);
+        if (!fopen (path)) {
+            samples_vec.resize (0);
+            return samples_vec;
+        }
+        FILE *input_data = fopen (path, "r");
+        while (!feof (input_data)) {
+            fscanf (input_data, "%s %d\n", path, &(new_elem.info));
+            new_elem.image = cv::imread (path, CV_LOAD_IMAGE_UNCHANGED);
+            samples_vec.push_back (new_elem);
+        }
+        fclose (input_data);
+        return samples_vec;
     }
 }
-    bool TestSamples (const char *path_to_dir);
-    vector <Image_t> TestUser ();
-    bool LearnNewSamples (const char *path_to_dir);
-    bool TrainYourself ();
