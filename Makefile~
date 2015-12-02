@@ -1,4 +1,4 @@
-OBJECTS=Manager.o main.o NeuralDetector.o InputProcessor.o Spokesman.o
+OBJECTS=Manager.o main.o NeuralDetector.o neural_temp.o InputProcessor.o Spokesman.o
 CC=g++
 CFLAGS= -std=gnu++11 `pkg-config opencv --cflags` -O2
 CLIBS=`pkg-config opencv --libs` -L/usr/local/lib -lopencv_core -lopencv_highgui -lopencv_ml -lopencv_video -lopencv_features2d -lopencv_calib3d -lopencv_objdetect -lopencv_contrib -lopencv_legacy -lopencv_flann -lopencv_nonfree
@@ -11,7 +11,7 @@ main.o : main.cpp Manager.h
 	$(CC) $(CFLAGS) -c $< $(CLIBS) -o $@
 NeuralDetector.o : NeuralDetector.cpp InputProcessor.h NeuralDetector.h CommonHeader.h
 	$(CC) $(CFLAGS) -c $< $(CLIBS) -o $@
-neural_temp.o : opencv2/core/core_c.h opencv2/imgproc/imgproc_c.h opencv2/highgui/highgui_c.h
+neural_temp.o : neural_temp.cpp opencv2/core/core_c.h opencv2/imgproc/imgproc_c.h opencv2/highgui/highgui_c.h
 	$(CC) $(CFLAGS) -c $< $(CLIBS) -o $@
 InputProcessor.o : InputProcessor.cpp InputProcessor.h CommonHeader.h
 	$(CC) $(CFLAGS) -c $< $(CLIBS) -o $@

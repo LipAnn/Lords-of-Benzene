@@ -29,14 +29,6 @@
 
 class NeuralDetector
 {
-  private:
-    const int MAX_ITER=10000;
-    const int HIDDEN_COUNT=25;
-    const double MLP_EPSILON=1e-6;
-    const double PARAM1=1e-2;
-    const double PARAM2=1e-2;
-    const double PREDICT_EPSILON = 0.9;
-
   public:
 
     CvANN_MLP machineBrain;
@@ -44,6 +36,14 @@ class NeuralDetector
     ~NeuralDetector();
     vector<Image_t> DetectImages(vector<Image_t> images);
     bool Train(vector<Image_t> images);
+
+  private:
+    const int MAX_ITER=10000;
+    const int HIDDEN_COUNT=25;
+    const double MLP_EPSILON=1e-6;
+    const double PARAM1=1e-2;
+    const double PARAM2=1e-2;
+    const double PREDICT_EPSILON = 0.9;
 };
 
 #endif // __NEURAL_DETECTOR_H__

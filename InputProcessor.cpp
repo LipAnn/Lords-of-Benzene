@@ -10,7 +10,7 @@ void InputProcessor::LoadImages(vector<Image_t> loaded_pack)
     given_pack = loaded_pack;
 }
 
-vector<Image_t>& InputProcessor::GetImages()
+vector<Image_t> InputProcessor::GetImages()
 {
   return given_pack;
 }
@@ -21,7 +21,7 @@ vector <Image_t> InputProcessor::ProcessImages (vector <Image_t> loaded_pack)
     FilterImages ();
     ResizeImages ();
     //... Here we can insert some more methods
-    return GetImages (loaded_pack);
+    return GetImages ();
 }
 
 void InputProcessor::FilterImages()
@@ -33,13 +33,13 @@ void InputProcessor::FilterImages()
         cv::cvtColor (given_pack[i].image, given_pack[i].image, CV_RGB2GRAY);
         /// Reduce noise with a kernel 3x3
         cv::blur(given_pack[i].image, edged_mask, cv::Size(3,3) );
-        
+
         /// Canny detector
         Canny(edged_mask, edged_mask, low_threshold, low_threshold*3, 3);
-        
+
         /// Using Canny's output as a mask, we display our result
         given_pack[i].image = cv::Scalar::all(0);
-        
+
         given_pack[i].image.copyTo(given_pack[i].image, edged_mask);
     }
 }
