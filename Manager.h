@@ -13,17 +13,13 @@ class Manager {
     InputProcessor processor;
     NeuralDetector detector;
     NeuralYoda yoda;
-  
-    vector <Image_t> LaunchSpokesman ();
-    vector <Image_t> SendImagesToProc (vector <Image_t> ImagePack);
-    vector <Image_t> DetectImages ();
-    void SummonYoda ();
-    
-  public:
     
     void InitSystem ();
-    void Process ();
+    void SummonYoda (vector <Image_t> ImagePack, UseMode_t given_mode);
     void BurnSystemDown ();
+    
+  public:  
+    void Process ();
 };
 
 #endif //__MANAGER_H__
