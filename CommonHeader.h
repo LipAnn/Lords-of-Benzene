@@ -2,7 +2,7 @@
 #define __COMMON_HEADER_H__
 
 #include <opencv2/opencv.hpp>
-#include <opencv2/highgui.hpp>
+#include <opencv2/highgui/highgui.hpp>
 #include <iostream>
 #include <vector>
 
