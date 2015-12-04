@@ -1,15 +1,16 @@
-#include "Spokesman.h"
 #include <unistd.h>
 #include <dirent.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 
+#include "Spokesman.h"
+
 /**
- * 
- *TODO: 
+ *
+ *TODO:
  * 1. Insert Qt4 GUI
- * 
- * 
+ *
+ *
 **/
 
 UseMode_t Spokesman::InteractWithUser()
@@ -19,15 +20,15 @@ UseMode_t Spokesman::InteractWithUser()
     printf ("2. Train our system on your samples\n");
     printf ("3. Test the work of our system on basic sets of examples\n");
     printf ("4. Quit");
-    
+
     char option = 0;
-    
+
     while ( (option = getchar() - '1') > 4 || option < 0) {
         printf ("ERROR! Wrong option:\"%c\" Maybe mistyped?\n", option);
         sleep (2);
         rewind (stdout);
         ftruncate (1, 0);
-        
+
         printf ("Welcome, User! Choose one of the options below:\n");
         printf ("1. Process several images\n");
         printf ("2. Process images in directory\n");
@@ -35,7 +36,7 @@ UseMode_t Spokesman::InteractWithUser()
         printf ("4. Test the work of our system on basic sets of examples\n");
         printf ("5. Quit");
     }
-    
+
     switch (option) {
         case 0:
             return UM_INPUT_IMAGE;
@@ -61,7 +62,7 @@ void Spokesman::Err (const char *error_text)
 {
     printf ("ERROR! \"%s\"\n", error_text);
     sleep (3);
-    
+
 }
 void Spokesman::Msg (const char *msg_text)
 {
@@ -76,40 +77,40 @@ bool Spokesman::ShowImages (vector <Image_t> what_to_show)
     }
 }
 
-vector <Image_t> Spokesman::InputImages (UseMode_t given_mode)
+vector<Image_t> Spokesman::InputImages (UseMode_t given_mode)
 {
-    char *path[PATH_MAX];
+    char path[PATH_MAX];
     printf ("Enter image path: ");
     Image_t new_elem;
-    
-    vector <Image_t> samples_vec;
+
+    vector<Image_t> samples_vec;
     samples_vec.reserve(10);
-    
-    while (!scanf ("%[^\n]\n", path)) {
+
+    while (!scanf("%[^\n]\n", path)) {
         new_elem.image = cv::imread (path, CV_LOAD_IMAGE_UNCHANGED);
         new_elem.info = SI_UNDEF;
         samples_vec.push_back(new_elem);
-        
+
         printf ("Enter image path: ");
     }
-    
+
     return samples_vec;
 }
 
 vector <Image_t> Spokesman::InputDir (UseMode_t given_mode)
 {
-    char *path_to_dir[PATH_MAX];
+    char path_to_dir[PATH_MAX];
     printf ("Enter path to dir: ");
     scanf ("%[^\n]\n", path_to_dir);
-    
+
     vector <Image_t> samples_vec;
     samples_vec.reserve(10);
-    
+
     DIR* directory = opendir (path_to_dir);
     char path[PATH_MAX] = {};
     struct dirent *dd = NULL;
     struct stat stb;
-    
+
     Image_t new_elem;
     if (given_mode == UM_INPUT_DIR) {
         while ((dd = readdir(directory)) != NULL) {
@@ -121,16 +122,16 @@ vector <Image_t> Spokesman::InputDir (UseMode_t given_mode)
             }
         }
     } else if (given_mode == UM_TRAIN_ON_NEW || given_mode == UM_TEST_SAMPLES) {
-        snprintf (path, sizeof (path), "%s/%s.dat", path_to_dir, path_to_dir);
+        snprintf(path, sizeof (path), "%s/%s.dat", path_to_dir, path_to_dir);
         if (!fopen (path)) {
-            samples_vec.resize (0);
+            samples_vec.clear();
             return samples_vec;
         }
         FILE *input_data = fopen (path, "r");
-        while (!feof (input_data)) {
-            fscanf (input_data, "%s %d\n", path, &(new_elem.info));
-            new_elem.image = cv::imread (path, CV_LOAD_IMAGE_UNCHANGED);
-            samples_vec.push_back (new_elem);
+        while(!feof (input_data)) {
+            fscanf(input_data, "%s %d\n", path, &(new_elem.info));
+            new_elem.image = cv::imread(path, CV_LOAD_IMAGE_UNCHANGED);
+            samples_vec.push_back(new_elem);
         }
         fclose (input_data);
         return samples_vec;
