@@ -11,8 +11,6 @@ main.o : main.cpp Manager.h
 	$(CC) $(CFLAGS) -c $< $(CLIBS) -o $@
 NeuralDetector.o : NeuralDetector.cpp InputProcessor.h NeuralDetector.h CommonHeader.h
 	$(CC) $(CFLAGS) -c $< $(CLIBS) -o $@
-neural_temp.o : opencv2/core/core_c.h opencv2/imgproc/imgproc_c.h opencv2/highgui/highgui_c.h
-	$(CC) $(CFLAGS) -c $< $(CLIBS) -o $@
 InputProcessor.o : InputProcessor.cpp InputProcessor.h CommonHeader.h
 	$(CC) $(CFLAGS) -c $< $(CLIBS) -o $@
 Spokesman.o : Spokesman.cpp Spokesman.h
