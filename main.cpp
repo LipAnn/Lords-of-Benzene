@@ -4,7 +4,7 @@ int main (void)
 {
     Manager manager;
 
-    manager.Process ();
+    manager.Process();
 
     return 0;
 }

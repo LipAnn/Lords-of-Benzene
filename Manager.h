@@ -5,18 +5,17 @@
 #include "Spokesman.h"
 #include "InputProcessor.h"
 #include "NeuralDetector.h"
-#include "NeuralYoda.h"
 
 class Manager {
   private:
     Spokesman spokesman;
     InputProcessor processor;
     NeuralDetector detector;
-    
+
     void InitSystem ();
     void BurnSystemDown ();
-    
-  public:  
+
+  public:
     void Process ();
 };
 

@@ -9,14 +9,14 @@
 NeuralDetector::NeuralDetector()
 {
     cv::Mat layers(4, 1, CV_32SC1);
-    layers.row (0) = cv::Scalar(ROWS * COLS);
-    layers.row (1) = cv::Scalar(HIDDEN_COUNT);
-    layers.row (2) = cv::Scalar(HIDDEN_COUNT);
-    layers.row (3) = cv::Scalar(1);
+    layers.row(0) = cv::Scalar(ROWS * COLS);
+    layers.row(1) = cv::Scalar(HIDDEN_COUNT);
+    layers.row(2) = cv::Scalar(HIDDEN_COUNT);
+    layers.row(3) = cv::Scalar(1);
     machineBrain.create(layers, CvANN_MLP::SIGMOID_SYM, 1, 1);
 }
 
-vector<Image_t> NeuralDetector::DetectImages(vector<Image_t> images)
+std::vector<Image_t> NeuralDetector::DetectImages(std::vector<Image_t> images)
 {
     size_t images_count = images.size();
     cv::Mat predictData(images_count, ROWS * COLS, CV_32FC1);
@@ -38,7 +38,7 @@ vector<Image_t> NeuralDetector::DetectImages(vector<Image_t> images)
     return images;
 }
 
-bool NeuralDetector::Train(vector<Image_t> images)
+bool NeuralDetector::Train(std::vector<Image_t> images)
 {
     size_t images_count = images.size();
     cv::Mat trainData(images_count, ROWS * COLS, CV_32FC1);

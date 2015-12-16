@@ -21,7 +21,7 @@ const int COLS=150;
 struct Image_t
 {
     cv::Mat image;
-    SampleInfo_t info;
+    int info;
 };
 
 #endif //__COMMON_HEADER_H__

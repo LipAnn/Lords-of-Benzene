@@ -7,16 +7,16 @@
 
 class InputProcessor
 {
-    
+
   private:
-    vector <Image_t> given_pack;
+    std::vector<Image_t> given_pack;
     void FilterImages(); // can return smth else
     void ResizeImages();
 
   public:
-    vector <Image_t> ProcessImages (vector <Image_t> loaded_pack);
-    void LoadImages (vector <Image_t> loaded_pack);
-    vector <Image_t> GetImages();
+    std::vector<Image_t> ProcessImages(std::vector <Image_t> loaded_pack);
+    void LoadImages(std::vector <Image_t> loaded_pack);
+    std::vector<Image_t> GetImages();
 };
 
 #endif // __INPUT_PROCESSOR_H__
