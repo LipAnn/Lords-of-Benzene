@@ -19,10 +19,10 @@ class Spokesman
 
     void Err(std::string error_text);
     void Msg(std::string msg_text);
-    vector<Image_t> InputImages(UseMode_t given_mode);
-    vector<Image_t> InputDir(UseMode_t given_mode);
+    std::vector<Image_t> InputImages(UseMode_t given_mode);
+    std::vector<Image_t> InputDir(UseMode_t given_mode);
 
-    bool ShowImages(vector <Image_t> what_to_show);
+    bool ShowImages(std::vector <Image_t> what_to_show);
     //bool TestSamples (const char *path_to_dir);
     //vector <Image_t> TestUser ();
     //bool LearnNewSamples (const char *path_to_dir);

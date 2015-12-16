@@ -11,11 +11,11 @@ class Manager {
     Spokesman spokesman;
     InputProcessor processor;
     NeuralDetector detector;
-    
+
     void InitSystem ();
     void BurnSystemDown ();
-    
-  public:  
+
+  public:
     void Process ();
 };
 

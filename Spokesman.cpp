@@ -1,7 +1,10 @@
-#include <unistd.h>
 #include <dirent.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <string>
+#include <iostream>
+#include <fstream>
+#include <stdio.h>
 
 #include "Spokesman.h"
 
@@ -30,7 +33,7 @@ UseMode_t Spokesman::InteractWithUser()
     char option = 0;
 
     while (std::cin >> option && !(option <= '5' && option >= '1')) {
-        std::cout << "ERROR! Wrong option: " << option << " Maybe mistyped?\n"
+        std::cout << "ERROR! Wrong option: " << option << " Maybe mistyped?\n";
         PrintInvitation();
     }
 
@@ -54,82 +57,73 @@ UseMode_t Spokesman::InteractWithUser()
     }
 }
 
-void Spokesman::Err (std::string error_text)
+void Spokesman::Err(std::string error_text)
 {
-    printf ("ERROR! \"%s\"\n", error_text);
-    sleep (3);
-
-}
-void Spokesman::Msg (const char *msg_text)
-{
-    printf ("MSG: %s\n", msg_text);
-    sleep (3);
+    std::cout << "Error occurred: " << error_text << "\n";
 }
 
-bool Spokesman::ShowImages (vector <Image_t> what_to_show)
+void Spokesman::Msg(std::string msg_text)
+{
+    std::cout << "Msg: " << msg_text << "\n";
+}
+
+bool Spokesman::ShowImages(std::vector<Image_t> what_to_show)
 {
     for (int i = 0; i < what_to_show.size(); i++) {
         //Displaying images
     }
 }
 
-vector<Image_t> Spokesman::InputImages (UseMode_t given_mode)
+std::vector<Image_t> Spokesman::InputImages(UseMode_t given_mode)
 {
-    char path[PATH_MAX];
-    printf ("Enter image path: ");
+    string path;
+    std::cout << "Enter image path: \n";
     Image_t new_elem;
 
-    vector<Image_t> samples_vec;
-    samples_vec.reserve(10);
-
-    while (!scanf("%[^\n]\n", path)) {
-        new_elem.image = cv::imread (path, CV_LOAD_IMAGE_UNCHANGED);
-        new_elem.info = SI_UNDEF;
-        samples_vec.push_back(new_elem);
-
-        printf ("Enter image path: ");
-    }
-
+    std::vector<Image_t> samples_vec;
+    std::cin >> path;
+    new_elem.image = cv::imread(path, CV_LOAD_IMAGE_UNCHANGED);
+    new_elem.info = SI_UNDEF;
+    samples_vec.push_back(new_elem);
     return samples_vec;
 }
 
-vector <Image_t> Spokesman::InputDir (UseMode_t given_mode)
+std::vector <Image_t> Spokesman::InputDir(UseMode_t given_mode)
 {
-    char path_to_dir[PATH_MAX];
-    printf ("Enter path to dir: ");
-    scanf ("%[^\n]\n", path_to_dir);
+    std::string path_to_dir;
+    std::cout << "Enter path to dir: \n";
+    std::cin >> path_to_dir;
 
-    vector <Image_t> samples_vec;
-    samples_vec.reserve(10);
-
-    DIR* directory = opendir (path_to_dir);
-    char path[PATH_MAX] = {};
+    std::vector<Image_t> samples_vec;
+    DIR* directory = opendir (path_to_dir.c_str());
+    std::string path = "";
     struct dirent *dd = NULL;
     struct stat stb;
 
     Image_t new_elem;
     if (given_mode == UM_INPUT_DIR) {
         while ((dd = readdir(directory)) != NULL) {
-            snprintf (path, sizeof(path), "%s/%s", path_to_dir, dd->d_name);
-            if ( (lstat (path, &stb) != -1) && S_ISREG(stb.st_mode)) {
-                new_elem.image = cv::imread (path, CV_LOAD_IMAGE_UNCHANGED);
+            path = path_to_dir + '/' + dd->d_name;
+            if ( (lstat (path.c_str(), &stb) != -1) && S_ISREG(stb.st_mode)) {
+                new_elem.image = cv::imread(path, CV_LOAD_IMAGE_UNCHANGED);
                 new_elem.info = SI_UNDEF;
                 samples_vec.push_back(new_elem);
             }
         }
     } else if (given_mode == UM_TRAIN_ON_NEW || given_mode == UM_TEST_SAMPLES) {
-        snprintf(path, sizeof (path), "%s/%s.dat", path_to_dir, path_to_dir);
-        if (!fopen (path)) {
+        path = path_to_dir + '/' + dd->d_name + ".dat";
+        std::ifstream fin(path.c_str());
+        if (!fin.is_open()) {
             samples_vec.clear();
             return samples_vec;
         }
-        FILE *input_data = fopen (path, "r");
-        while(!feof (input_data)) {
-            fscanf(input_data, "%s %d\n", path, &(new_elem.info));
-            new_elem.image = cv::imread(path, CV_LOAD_IMAGE_UNCHANGED);
+        std::string impath;
+        while(fin >> impath >> new_elem.info) {
+            impath = path + '/' + impath;
+            new_elem.image = cv::imread(impath, CV_LOAD_IMAGE_UNCHANGED);
             samples_vec.push_back(new_elem);
         }
-        fclose (input_data);
+        fin.close();
         return samples_vec;
     }
 }

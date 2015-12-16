@@ -5,17 +5,17 @@
 #include "InputProcessor.h"
 #include "CommonHeader.h"
 
-void InputProcessor::LoadImages(vector<Image_t> loaded_pack)
+void InputProcessor::LoadImages(std::vector<Image_t> loaded_pack)
 {
     given_pack = loaded_pack;
 }
 
-vector<Image_t> InputProcessor::GetImages()
+std::vector<Image_t> InputProcessor::GetImages()
 {
   return given_pack;
 }
 
-vector <Image_t> InputProcessor::ProcessImages (vector <Image_t> loaded_pack)
+std::vector <Image_t> InputProcessor::ProcessImages (vector <Image_t> loaded_pack)
 {
     LoadImages (loaded_pack);
     FilterImages ();
@@ -30,7 +30,7 @@ void InputProcessor::FilterImages()
     int low_threshold = 100;
      for (long long i = 0; i < given_pack.size(); ++i) {
         //Transforming image to grayscale
-        cv::cvtColor (given_pack[i].image, given_pack[i].image, CV_RGB2GRAY);
+        cv::cvtColor(given_pack[i].image, given_pack[i].image, CV_RGB2GRAY);
         /// Reduce noise with a kernel 3x3
         cv::blur(given_pack[i].image, edged_mask, cv::Size(3,3) );
 
