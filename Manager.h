@@ -5,7 +5,6 @@
 #include "Spokesman.h"
 #include "InputProcessor.h"
 #include "NeuralDetector.h"
-#include "NeuralYoda.h"
 
 class Manager {
   private:
