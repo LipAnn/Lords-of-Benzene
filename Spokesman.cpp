@@ -36,7 +36,7 @@ UseMode_t Spokesman::InteractWithUser()
         std::cout << "ERROR! Wrong option: " << option << " Maybe mistyped?\n";
         PrintInvitation();
     }
-
+    option -= '1';
     switch (option) {
         case 0:
             return UM_INPUT_IMAGE;
@@ -82,7 +82,8 @@ std::vector<Image_t> Spokesman::InputImages(UseMode_t given_mode)
 
     std::vector<Image_t> samples_vec;
     std::cin >> path;
-    new_elem.image = cv::imread(path, CV_LOAD_IMAGE_UNCHANGED);
+    std::cout << path << " AZAZA\n";
+    new_elem.image = cv::imread(path, CV_LOAD_IMAGE_GRAYSCALE);
     new_elem.info = SI_UNDEF;
     samples_vec.push_back(new_elem);
     return samples_vec;
@@ -95,7 +96,7 @@ std::vector <Image_t> Spokesman::InputDir(UseMode_t given_mode)
     std::cin >> path_to_dir;
 
     std::vector<Image_t> samples_vec;
-    DIR* directory = opendir (path_to_dir.c_str());
+    DIR* directory = opendir(path_to_dir.c_str());
     std::string path = "";
     struct dirent *dd = NULL;
     struct stat stb;
@@ -105,7 +106,8 @@ std::vector <Image_t> Spokesman::InputDir(UseMode_t given_mode)
         while ((dd = readdir(directory)) != NULL) {
             path = path_to_dir + '/' + dd->d_name;
             if ( (lstat (path.c_str(), &stb) != -1) && S_ISREG(stb.st_mode)) {
-                new_elem.image = cv::imread(path, CV_LOAD_IMAGE_UNCHANGED);
+                std::cout << "AZAZA LALKI\n";
+                new_elem.image = cv::imread(path, CV_LOAD_IMAGE_GRAYSCALE);
                 new_elem.info = SI_UNDEF;
                 samples_vec.push_back(new_elem);
             }
@@ -120,7 +122,7 @@ std::vector <Image_t> Spokesman::InputDir(UseMode_t given_mode)
         std::string impath;
         while(fin >> impath >> new_elem.info) {
             impath = path + '/' + impath;
-            new_elem.image = cv::imread(impath, CV_LOAD_IMAGE_UNCHANGED);
+            new_elem.image = cv::imread(impath, CV_LOAD_IMAGE_GRAYSCALE);
             samples_vec.push_back(new_elem);
         }
         fin.close();

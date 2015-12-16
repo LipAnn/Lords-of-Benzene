@@ -22,7 +22,7 @@ void Manager::Process ()
         switch (given_mode) {
             case UM_INPUT_IMAGE:
                 samples_vec = detector.DetectImages(processor.ProcessImages(spokesman.InputImages(given_mode)));
-                spokesman.ShowImages (samples_vec);
+                spokesman.ShowImages(samples_vec);
                 break;
 
             case UM_INPUT_DIR:
