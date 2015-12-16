@@ -13,28 +13,25 @@
  *
 **/
 
+void Spokesman::PrintInvitation()
+{
+    std::cout << "Welcome, User! Choose one of the options below:\n";
+    std::cout << "1. Process several images\n";
+    std::cout << "2. Process images in directory\n";
+    std::cout << "3. Train our system on your samples\n";
+    std::cout << "4. Test the work of our system on basic sets of examples\n";
+    std::cout << "5. Quit\n";
+}
+
 UseMode_t Spokesman::InteractWithUser()
 {
-    printf ("Welcome, User! Choose one of the options below:\n");
-    printf ("1. Process several images\n");
-    printf ("2. Train our system on your samples\n");
-    printf ("3. Test the work of our system on basic sets of examples\n");
-    printf ("4. Quit");
 
+    PrintInvitation();
     char option = 0;
 
-    while ( (option = getchar() - '1') > 4 || option < 0) {
-        printf ("ERROR! Wrong option:\"%c\" Maybe mistyped?\n", option);
-        sleep (2);
-        rewind (stdout);
-        ftruncate (1, 0);
-
-        printf ("Welcome, User! Choose one of the options below:\n");
-        printf ("1. Process several images\n");
-        printf ("2. Process images in directory\n");
-        printf ("3. Train our system on your samples\n");
-        printf ("4. Test the work of our system on basic sets of examples\n");
-        printf ("5. Quit");
+    while (std::cin >> option && !(option <= '5' && option >= '1')) {
+        std::cout << "ERROR! Wrong option: " << option << " Maybe mistyped?\n"
+        PrintInvitation();
     }
 
     switch (option) {
@@ -51,14 +48,13 @@ UseMode_t Spokesman::InteractWithUser()
             return UM_TEST_SAMPLES;
             break;
         case 4:
-            printf ("What a pity that you have finally finished your work...\n");
-            sleep (3);
+            std::cout << "What a pity that you have finally finished your work...\n";
             return UM_IM_QUIT;
             break;
     }
 }
 
-void Spokesman::Err (const char *error_text)
+void Spokesman::Err (std::string error_text)
 {
     printf ("ERROR! \"%s\"\n", error_text);
     sleep (3);
